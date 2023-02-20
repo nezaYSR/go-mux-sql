@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    environment:
+      SQL_DIALECT: mysql
+      PORT: 9000
+      SQL_USER: root
+      SQL_PWD: root
+      SQL_SCHEMA: scroll_table
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: scroll_table
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
